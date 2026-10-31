@@ -1,5 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="color-scheme" content="light"><title>Linker – Short links, no noise</title>
-<link rel="icon" type="image/svg+xml" href="/icon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png"><link rel="apple-touch-icon" href="/icon-180.png"><meta name="theme-color" content="#273F43">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="color-scheme" content="light"><title>Linker – URL shortener</title><meta name="description" content="Paste a long URL, get a short link. No sign-up, no tracking.">
+<link rel="icon" type="image/svg+xml" href="/icon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png"><link rel="apple-touch-icon" href="/icon-180.png"><meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@200..900&display=swap" rel="stylesheet">
 <style>
 :root{--ice:#fff;--navy:#000;--navy2:#161616;--sky:#9a9a9a;--f:"Inter Tight","Helvetica Neue",Arial,sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -49,33 +49,70 @@ input{font:500 clamp(22px,3.4vw,52px)/1.1 var(--f);letter-spacing:-.04em;color:#
 .rd{position:fixed;inset:0;z-index:300;background:#000;color:#fff;display:none;flex-direction:column;justify-content:center;align-items:center;gap:16px;text-align:center;padding:20px}.rd.on{display:flex}.rd b{font-size:clamp(60px,14vw,220px);font-weight:800;letter-spacing:-.06em;line-height:.9}.rd p{margin:0;color:var(--sky);word-break:break-all}
 @media (max-width:760px){.nav{grid-template-columns:1fr auto}.nav .c{display:none}.pr{grid-template-columns:1fr}.sub{align-self:flex-start;text-align:left}.tc{min-width:78px;font-size:12px}.clp{font-size:0;padding:0}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mt,.nav .c i{animation:none}}
-</style></head><body>
+
+/* v3: shortener lives in the hero */
+.hero{padding-top:84px;padding-bottom:56px}
+.t1{font-size:clamp(34px,6vw,96px)}.t2{font-size:clamp(46px,10.5vw,176px);font-weight:800;padding-bottom:.04em}
+.hf{position:relative;z-index:2;display:block;border:0;width:min(100%,940px);margin-top:clamp(20px,3vw,40px)}
+.hb{display:flex;border:2px solid #000;background:#fff}
+.hb input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:#000;font:500 clamp(18px,2.6vw,30px)/1.1 var(--f);letter-spacing:-.03em;padding:clamp(14px,2vw,22px)}.hb input::placeholder{color:#aaa}
+.hb:focus-within{outline:3px solid #808080;outline-offset:3px}
+.hb .pst{padding:0 18px;font-weight:500;font-size:15px;color:#777;border-left:1px solid rgba(0,0,0,.2)}.hb .pst:hover{color:#000}
+.hb .go{background:#000;color:#fff;padding:0 clamp(20px,3vw,40px);font-size:clamp(17px,2vw,26px)}.hb .go:hover{background:#222;padding:0 clamp(26px,3.6vw,48px)}.hb .go[disabled]{opacity:.5;cursor:wait}
+.al{display:flex;align-items:center;margin-top:8px;border:1px solid rgba(0,0,0,.25);background:#fff}.al span{padding-left:14px;color:#777;white-space:nowrap;max-width:55%;overflow:hidden;text-overflow:ellipsis;font-size:clamp(15px,1.5vw,19px)}
+.al input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:#000;font:500 clamp(15px,1.5vw,19px)/1.2 var(--f);padding:12px 14px 12px 2px;letter-spacing:-.02em}.al input::placeholder{color:#aaa}.al:focus-within{border-color:#000}
+.msg{min-height:1.5em;margin:10px 0 0;font-size:15px;color:#555}.msg.bad{color:#c00}
+.res{display:none;align-items:center;justify-content:space-between;gap:14px;background:#000;color:#fff;padding:14px 16px}.res.on{display:flex}
+.res a{font-weight:600;font-size:clamp(18px,3vw,28px);letter-spacing:-.04em;word-break:break-all}.res a:hover{text-decoration:underline;text-underline-offset:4px}.res button{background:#fff;color:#000;font-weight:700;padding:10px 18px;flex:none}
+.hint{position:relative;z-index:2;align-self:flex-start;margin:0;font-size:14px;color:#777}
+.sp{border-top:1px solid rgba(255,255,255,.28)}
+.big{margin:0;font-weight:200;font-size:clamp(58px,15.5vw,270px);line-height:1;letter-spacing:-.06em;padding-bottom:.06em;transition:font-weight .6s cubic-bezier(.2,.8,.2,1),color .3s;cursor:default}.sp:hover .big{font-weight:850}
+.mk{padding-top:clamp(40px,6vw,90px)}
+.ct{background:#000;color:#fff;padding:clamp(60px,8vw,110px) clamp(18px,2.2vw,36px) 100px}
+.ctg{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(20px,4vw,60px)}
+.cg h3{margin:0 0 8px;font-size:14px;font-weight:500;color:var(--sky)}
+.num{display:block;margin-top:clamp(30px,5vw,70px);font-weight:300;font-size:clamp(34px,10.4vw,190px);line-height:1;letter-spacing:-.06em;white-space:nowrap;transition:font-weight .5s}.num:hover{font-weight:850}
+.foot{margin-top:clamp(40px,6vw,80px);padding-top:16px;border-top:1px solid rgba(255,255,255,.28);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px;color:var(--sky)}
+.ctg .ic{width:clamp(120px,22vw,260px);border-radius:22%;display:block}
+@media (max-width:760px){.ctg{grid-template-columns:1fr}.hb .pst{display:none}.hint{align-self:flex-start}}
+</style></head>
+<body>
 <div class="cu" id="cu"></div>
-<header class="nav pad"><a href="#top">linker</a><div class="c">Short links<i aria-hidden="true"></i></div><nav class="r"><a href="#shorten">Shorten</a><a href="#links">Links</a></nav></header>
+<header class="nav pad"><a href="#top">linker</a><div class="c">Short links<i aria-hidden="true"></i></div><nav class="r"><a href="#links">Links</a><a href="#about">About</a></nav></header>
 <main id="top">
-<section class="hero pad"><i class="hl" style="top:20%"></i><i class="hl" style="top:44%"></i><i class="hl" style="top:67%"></i>
-<h1 class="t t1"><span>Long</span> links.</h1><p class="t t2" aria-hidden="true">Short</p><p class="t t3" aria-hidden="true">Linker</p>
-<p class="sub">A tiny link shortener. Paste a URL, get a short one. No sign-up, no tracking, no noise.</p></section>
+<section class="hero pad"><i class="hl" style="top:18%"></i><i class="hl" style="top:44%"></i><i class="hl" style="top:72%"></i>
+<h1 class="t t1"><span>Long</span> links.</h1><p class="t t2">Made short.</p>
+<form class="hf" id="f" autocomplete="off"><div class="hb"><input id="u" type="text" inputmode="url" placeholder="Paste your long link here" aria-label="Long URL" autofocus><button class="pst" type="button" id="paste">Paste</button><button class="go" id="go" type="submit">Shorten ↗</button></div>
+<div class="al"><span id="pre"></span><input id="a" type="text" placeholder="custom-alias (optional)" aria-label="Custom alias" maxlength="24"></div>
+<p class="msg" id="msg" role="status"></p><div class="res" id="res"><a id="rl" href="#" target="_blank" rel="noopener"></a><button id="rc" type="button">Copy</button></div></form>
+<p class="hint">Free · No sign-up · No tracking</p></section>
 <div class="strip" aria-hidden="true"><div class="mt"><span>Paste</span><i>*</i><span>Shorten</span><i>*</i><span>Share</span><i>*</i><span>Paste</span><i>*</i><span>Shorten</span><i>*</i><span>Share</span><i>*</i><span>Paste</span><i>*</i><span>Shorten</span><i>*</i><span>Share</span><i>*</i><span>Paste</span><i>*</i><span>Shorten</span><i>*</i><span>Share</span><i>*</i></div></div>
-<section class="mk pad" id="shorten"><h2>Shorten</h2>
-<div class="sl"><span>Paste a link</span><span>Stored on Cloudflare</span></div>
-<form id="f" autocomplete="off"><input id="u" type="text" inputmode="url" placeholder="https://your-very-long-link.com/…" aria-label="Long URL"><button class="go" type="submit">Go ↗</button><input class="alias" id="a" type="text" placeholder="Custom alias (optional, letters, numbers, dashes)" aria-label="Custom alias" maxlength="24"></form>
-<p class="err" id="err" role="status"></p><div class="out" id="out"></div></section>
+<section class="mk pad" id="about">
+<div class="sp"><div class="sl"><span>Paste, press enter, done</span><span>01</span></div><p class="big">Instant</p></div>
+<div class="sp"><div class="sl"><span>No account, no email</span><span>02</span></div><p class="big">Free</p></div>
+<div class="sp"><div class="sl"><span>Redirects run on Cloudflare’s edge</span><span>03</span></div><p class="big">Fast</p></div>
+</section>
 <section class="proj pad" id="links"><h2 id="cnt">0 links</h2><div id="list"></div></section>
+<section class="ct" id="contact"><div class="ctg"><div><img class="ic" src="/icon.svg" alt="Linker"></div><div class="cg"><h3>Find it</h3>
+<a class="cell" href="https://github.com/buildwithutkarsh-cpu/linker" target="_blank" rel="noopener">Source on GitHub</a>
+<a class="cell" href="https://utkarshsaraswattt.xyz" target="_blank" rel="noopener">Built by Utkarsh Saraswat</a></div></div>
+<span class="num">Linker</span>
+<div class="foot"><span>Your link list is saved in this browser.</span><span>© 2026 Utkarsh Saraswat</span></div></section>
 </main>
 <div class="dock" aria-hidden="true"><div class="dot">▶</div><div class="trk"><div class="clp" id="clp" style="left:3px;width:40px">0 links</div></div><div class="tc" id="tc">00:00:00:00</div></div>
 <script>
 (function(){
-var KEY="linker:v2",links=[],$=function(i){return document.getElementById(i)};
+var KEY="linker:v2",links=[],$=function(i){return document.getElementById(i)},busy=false;
 function load(){try{links=JSON.parse(localStorage.getItem(KEY)||"[]")||[]}catch(e){links=[]}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(links))}catch(e){}}
 function short(c){return location.origin+"/"+c}
 function norm(v){v=v.trim();if(!v)return null;if(!/^https?:\/\//i.test(v))v="https://"+v;try{var u=new URL(v);if(!/^https?:$/.test(u.protocol)||u.hostname.indexOf(".")<0)return null;return u.href}catch(e){return null}}
+function msg(t,bad){var m=$("msg");m.textContent=t||"";m.className="msg"+(bad?" bad":"")}
 function copy(t,btn){var done=function(){var o=btn.textContent;btn.textContent="Copied";setTimeout(function(){btn.textContent=o},1200)};
-try{navigator.clipboard.writeText(t).then(done,fb)}catch(e){fb()}
-function fb(){var x=document.createElement("textarea");x.value=t;document.body.appendChild(x);x.select();try{document.execCommand("copy");done()}catch(e){}document.body.removeChild(x)}}
-function showOut(l){var o=$("out");o.innerHTML="";var b=document.createElement("button");b.className="cell cp";b.textContent=short(l.c).replace(/^https?:\/\//,"");b.onclick=function(){copy(short(l.c),b)};o.appendChild(b)}
-function render(){var L=$("list");L.innerHTML="";var n=links.length;var lbl=n+(n===1?" link":" links");$("cnt").textContent=lbl;$("clp").textContent=lbl;$("clp").style.width=Math.min(100,40+n*14)+"px";
+function fb(){var x=document.createElement("textarea");x.value=t;document.body.appendChild(x);x.select();try{document.execCommand("copy");done()}catch(e){}document.body.removeChild(x)}
+try{navigator.clipboard.writeText(t).then(done,fb)}catch(e){fb()}}
+function showRes(l){var a=$("rl");a.href=short(l.c);a.textContent=short(l.c).replace(/^https?:\/\//,"");$("res").classList.add("on");$("rc").onclick=function(){copy(short(l.c),$("rc"))};copy(short(l.c),$("rc"))}
+function render(){var L=$("list");L.innerHTML="";var n=links.length,lbl=n+(n===1?" link":" links");$("cnt").textContent=lbl;$("clp").textContent=lbl;$("clp").style.width=Math.min(100,40+n*14)+"px";
 if(!n){var e=document.createElement("div");e.className="empty";e.textContent="Nothing here yet. Shorten your first link above.";L.appendChild(e);return}
 links.forEach(function(l){var r=document.createElement("div");r.className="pr";
 var a=document.createElement("a");a.className="pn";a.href=short(l.c);a.target="_blank";a.rel="noopener";a.textContent="/"+l.c;
@@ -84,15 +121,16 @@ var ac=document.createElement("div");ac.className="acts";var c=document.createEl
 var d=document.createElement("button");d.textContent="Delete";d.onclick=function(){d.textContent="…";
 fetch("/api/links/"+l.c,{method:"DELETE",headers:{"x-key":l.k||""}}).then(function(res){if(res.ok){links=links.filter(function(x){return x.c!==l.c});save();render()}else d.textContent="Failed"}).catch(function(){d.textContent="Failed"})};
 ac.appendChild(c);ac.appendChild(d);m.appendChild(b);m.appendChild(s);m.appendChild(ac);r.appendChild(a);r.appendChild(m);L.appendChild(r)})}
-var busy=false;
-$("f").onsubmit=function(ev){ev.preventDefault();if(busy)return;var err=$("err");err.textContent="";var u=norm($("u").value);
-if(!u){err.textContent="That doesn’t look like a valid link.";return}
-busy=true;err.textContent="Shortening…";
+$("pre").textContent=location.host+"/";
+$("paste").onclick=function(){try{navigator.clipboard.readText().then(function(t){$("u").value=t;$("u").focus()}).catch(function(){$("u").focus()})}catch(e){$("u").focus()}};
+$("f").onsubmit=function(ev){ev.preventDefault();if(busy)return;var u=norm($("u").value);
+if(!u){msg("That doesn’t look like a valid link.",true);return}
+busy=true;$("go").disabled=true;msg("Shortening…");
 fetch("/api/shorten",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({url:u,alias:$("a").value})})
 .then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j}})})
-.then(function(x){busy=false;if(!x.ok){err.textContent=x.j.error||"Something went wrong.";return}
-err.textContent="";var l={c:x.j.code,u:x.j.url,t:Date.now(),k:x.j.key};links.unshift(l);save();render();showOut(l);$("u").value="";$("a").value=""})
-.catch(function(){busy=false;err.textContent="Network error. Try again."})};
+.then(function(x){busy=false;$("go").disabled=false;if(!x.ok){msg(x.j.error||"Something went wrong.",true);return}
+msg("Short link created and copied.");var l={c:x.j.code,u:x.j.url,t:Date.now(),k:x.j.key};links.unshift(l);save();render();showRes(l);$("u").value="";$("a").value=""})
+.catch(function(){busy=false;$("go").disabled=false;msg("Network error. Try again.",true)})};
 load();render();
 var t0=Date.now();setInterval(function(){var s=Math.floor((Date.now()-t0)/1000),p=function(n){return String(n).padStart(2,"0")};$("tc").textContent="00:"+p(Math.floor(s/60)%60)+":"+p(s%60)+":"+p(Math.floor((Date.now()-t0)/40)%25)},40);
 document.querySelectorAll(".t1 span").forEach(function(s){s.parentNode.addEventListener("mousemove",function(e){s.style.fontWeight=Math.round(200+700*(e.clientX/innerWidth))})});
