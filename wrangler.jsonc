@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "linker",
+  "main": "src/worker.js",
+  "compatibility_date": "2025-01-01",
+  "assets": { "directory": "./public", "binding": "ASSETS" },
+  "kv_namespaces": [
+    // Run: npx wrangler kv namespace create LINKS   then paste the id below
+    { "binding": "LINKS", "id": "7bbe1be0f51546e688287ea500ac4abe" }
+  ]
+  // Optional custom domain, e.g. s.utkarshsaraswattt.xyz:
+  // "routes": [{ "pattern": "s.utkarshsaraswattt.xyz", "custom_domain": true }]
+}
